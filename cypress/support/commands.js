@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import credentials from "../fixtures/credentials.json"
+
+Cypress.Commands.add('loginCommand', ()=>{
+    cy.get('[data-test="username"]').type(credentials.usernames.standart_user)
+    cy.get('[data-test="password"]').type(credentials.password)
+
+    cy.get('[data-test="login-button"]').click()
+});

@@ -47,3 +47,9 @@ Cypress.Commands.add('adicionarCarrinhoCommand', ()=>{
         cy.get('div[data-test="inventory-item-name"]').should('contain', nomeProduto)
     })
 });
+
+Cypress.Commands.add('sideBarExpandCommand',  ()=>{
+    cy.get('div[class="bm-menu-wrap"]').should('have.attr', 'aria-hidden', 'true');
+    cy.get('button#react-burger-menu-btn').click()
+    cy.get('div[class="bm-menu-wrap"]').should('have.attr', 'aria-hidden', 'false');
+});

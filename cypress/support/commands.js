@@ -31,4 +31,19 @@ Cypress.Commands.add('loginCommand', ()=>{
     cy.get('[data-test="password"]').type(credentials.password)
 
     cy.get('[data-test="login-button"]').click()
+    cy.url().should('include', '/inventory.html')
+});
+
+Cypress.Commands.add('adicionarCarrinho', ()=>{
+    cy.get('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').as('botao').then(($botao)=>{
+        cy.log($botao)
+        let nomeProduto = $botao[0].parentElement.parentElement.childNodes[0].childNodes[0].innerText
+        cy.log(nomeProduto)
+        cy.get('@botao')
+            .should('have.text', 'Add to cart')
+            .click()
+        cy.get('button[data-test="remove-sauce-labs-bolt-t-shirt"]').should('be.visible')
+        cy.get('a[data-test="shopping-cart-link"]').click()
+        cy.get('div[data-test="inventory-item-name"]').should('contain', nomeProduto)
+    })
 });

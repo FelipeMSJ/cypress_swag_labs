@@ -11,9 +11,8 @@ describe('Cenários referentes à página de carrinho', () => {
     });
 
     it('Remover item do carrinho', () => {
-        cy.get('div[data-test="inventory-item"]').should('be.visible')
-        cy.get('div[data-test="inventory-item"]').as('produto')
-        cy.get('@produto')
+        cy.get('div[data-test="inventory-item"]')
+            .should('be.visible')
             .children('div[class="cart_item_label"]')
             .children('div[class="item_pricebar"]')
             .children('button[class="btn btn_secondary btn_small cart_button"]')

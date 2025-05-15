@@ -34,7 +34,7 @@ Cypress.Commands.add('loginCommand', ()=>{
     cy.url().should('include', '/inventory.html')
 });
 
-Cypress.Commands.add('adicionarCarrinho', ()=>{
+Cypress.Commands.add('adicionarCarrinhoCommand', ()=>{
     cy.get('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').as('botao').then(($botao)=>{
         cy.log($botao)
         let nomeProduto = $botao[0].parentElement.parentElement.childNodes[0].childNodes[0].innerText

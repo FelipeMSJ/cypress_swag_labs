@@ -34,18 +34,21 @@ Cypress.Commands.add('loginCommand', ()=>{
     cy.url().should('include', '/inventory.html')
 });
 
-Cypress.Commands.add('adicionarCarrinhoCommand', ()=>{
-    cy.get('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').as('botao').then(($botao)=>{
-        cy.log($botao)
-        let nomeProduto = $botao[0].parentElement.parentElement.childNodes[0].childNodes[0].innerText
-        cy.log(nomeProduto)
-        cy.get('@botao')
-            .should('have.text', 'Add to cart')
-            .click()
-        cy.get('button[data-test="remove-sauce-labs-bolt-t-shirt"]').should('be.visible')
-        cy.get('a[data-test="shopping-cart-link"]').click()
-        cy.get('div[data-test="inventory-item-name"]').should('contain', nomeProduto)
-    })
+Cypress.Commands.add('redirectCarrinhoCommand', ()=>{
+    cy.get('div[data-test="inventory-item-description"]').eq(4)
+        .as('divProduto')
+        .then(($produto)=>{
+            let nomeProduto = $produto[0].children[0].children[0].innerText
+            
+            cy.get('@divProduto')
+                .children('div[class="pricebar"]')
+                .children('button[class="btn btn_primary btn_small btn_inventory "]')
+                .should('have.text', 'Add to cart')
+                .click()
+
+            cy.get('a[data-test="shopping-cart-link"]').click()
+            cy.get('div[data-test="inventory-item-name"]').should('contain', nomeProduto)
+        })
 });
 
 Cypress.Commands.add('sideBarExpandCommand',  ()=>{

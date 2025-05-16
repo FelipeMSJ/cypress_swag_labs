@@ -7,13 +7,15 @@ beforeEach(() => {
 
 describe("Cenários referentes à página de login", ()=>{
     it('Usuário deve logar com sucesso', () => {
+        //Automação de login sendo realizada como Command para reaproveitamento de código
         cy.loginCommand()
     });
 
     it('Falha ao inserir usuário bloqueado', () => {
+        //Inputs sendo realizados a partir da fixture credentials.json
         cy.get('[data-test="username"]').type(credentials.usernames.locked_out_user)
         cy.get('[data-test="password"]').type(credentials.password)
-
+        //Clique e mensagem de erro
         cy.get('[data-test="login-button"]').click()
         cy.get('h3[data-test="error"]').should('contain', 'Epic sadface: Sorry, this user has been locked out.')
     });
@@ -33,6 +35,7 @@ describe("Cenários referentes à página de login", ()=>{
     });
 
     it('Falha ao inserir usuário ou senha incorretos', () => {
+        //Utilizando Faker para gerar dados aleatórios
         cy.get('[data-test="username"]').type(faker.internet.username())
         cy.get('[data-test="password"]').type(faker.internet.password())
 
